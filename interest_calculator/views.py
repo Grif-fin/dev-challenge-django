@@ -24,13 +24,16 @@ def getGraphResults(initial_deposit, monthly_deposit, interest_rate):
 	amount = initial_deposit
 	for x in range(1, 51):
 		result.append({'month': x, 'amount': amount})
-		amount = amount+monthly_deposit
-		amount += calcGrowth(amount, interest_rate)
+		if monthly_deposit == 0:
+			amount = amount + calcGrowth(amount, interest_rate)
+		else:
+			amount = amount + calcGrowth(amount+monthly_deposit, interest_rate)
 
+	pprint(result)
 	return result
 
 def calcGrowth(amount, interest_rate):
 	if interest_rate == 0:
-		return amount
+		return 0
 	else:
 		return (interest_rate*(amount))/100.0
