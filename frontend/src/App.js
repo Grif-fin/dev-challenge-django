@@ -1,36 +1,26 @@
 import React, { Component } from "react"
-import { calculate } from "./API"
 import InputGraphSection from './Components/InputGraphSection'
 import "./App.css"
+import { Provider } from 'react-redux';
+import store from './Store';
 
 class App extends Component {
 	state = {
-		loading: true,
 		result: null
 	}
 
-	componentDidMount() {
-		calculate(1000, 1)
-			.then(r => this.setState({
-            	loading: false,
-                result: r.data.result
-			}))
-	}
-
 	render() {
-	    const {loading, result} = this.state
+	    const {result} = this.state
 
 		return (
-			<div className="App">
-				<header className="App-header">
-					<h1 className="App-title">Finimize dev challenge</h1>
-				</header>
-                    {loading ?
-                        'Loading...'
-                    :
-					 	<InputGraphSection {...{result}}/>
-                    }
-			</div>
+	      <Provider store={store}>
+				<div className="App">
+					<header className="App-header">
+						<h1 className="App-title">Finimize dev challenge</h1>
+					</header>
+	                    {<InputGraphSection {...{result}}/>}
+				</div>
+	      </Provider>
 		)
 	}
 }

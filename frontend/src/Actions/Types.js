@@ -1,0 +1,1 @@
+export const CALCULATE_SAVING = 'CALCULATE_SAVING';

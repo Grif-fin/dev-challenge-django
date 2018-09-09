@@ -1,10 +1,33 @@
 import React, { Component } from "react"
+import { calculate } from "./../API"
 import CurrencyInput from "./CurrencyInput"
 import SliderInput from "./SliderInput"
 import DisplayGraph from "./DisplayGraph"
 import "./InputGraphSection.css"
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { calculateSaving } from '../Actions/Calculate';
 
-export default class InputGraphSection extends Component {
+class InputGraphSection extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialDeposit: 0,
+      monthlyDeposit: 0,
+      interestRate: 0
+    };
+
+    this.onInputChanged = this.onInputChanged.bind(this);
+  }
+
+
+  onInputChanged(value, id){
+    this.setState({ id: value });
+    this.props.calculateSaving(this.state.initialDeposit,
+                                this.state.monthlyDeposit,
+                                this.state.interestRate );
+  }
+
   render() {
     const { result } = this.props
 
@@ -12,15 +35,15 @@ export default class InputGraphSection extends Component {
       <div>
         <div className="financial-inputs">
           <p className="input-label">How much have you saved?</p>
-          <CurrencyInput defaultValue={0} />
+          <CurrencyInput defaultValue={0} id='initialDeposit' onFieldChange={this.onInputChanged}/>
 
           <p className="input-label">How much will you save each month?</p>
-          <CurrencyInput defaultValue={0} />
+          <CurrencyInput defaultValue={0} id='monthlyDeposit' onFieldChange={this.onInputChanged}/>
 
           <p className="input-label">
             How much interest will you earn per year?
           </p>
-          <SliderInput defaultValue={4} />
+          <SliderInput defaultValue={4} id='interestRate' onFieldChange={this.onInputChanged}/>
         </div>
         <div className="financial-display">
           {/*We have included some sample data here, you will need to replace this
@@ -40,8 +63,8 @@ export default class InputGraphSection extends Component {
                 amount: 1000
               },
               {
-                month: 4,
-                amount: 1500
+                month: 6,
+                amount: 1800
               }
             ]}
           />
@@ -50,3 +73,17 @@ export default class InputGraphSection extends Component {
     )
   }
 }
+
+InputGraphSection.propTypes = {
+  onInputChanged: PropTypes.func,
+  calculateSaving: PropTypes.func.isRequired,
+  calculatedData: PropTypes.object
+}
+
+const mapStateToProps = state => ({
+  initialDeposit: state.calculate.initialDeposit,
+  monthlyDeposit: state.calculate.monthlyDeposit,
+  interestRate: state.calculate.interestRate
+});
+
+export default connect(mapStateToProps, { calculateSaving })(InputGraphSection);
