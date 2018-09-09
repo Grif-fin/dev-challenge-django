@@ -1,12 +1,13 @@
 import { CALCULATE_SAVING } from './Types';
 import request from "axios"
 
-export const calculateSaving = (initialDeposit, monthlyDeposit, interestRate) => dispatch => {
+export const calculateSaving = (initialDeposit, monthlyDeposit, interestRate, interestRateInterval) => dispatch => {
 	request
 		.post("/calculate/", {
 			initialDeposit,
 			monthlyDeposit,
-			interestRate
+			interestRate,
+			interestRateInterval
 		})
 		    .then(resp =>
 		      dispatch({

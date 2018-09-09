@@ -14,21 +14,31 @@ class InputGraphSection extends Component {
     this.state = {
       initialDeposit: 0,
       monthlyDeposit: 0,
-      interestRate: 4
+      interestRate: 4,
+      interestRateInterval: "monthly"
     };
 
     this.onInputChanged = this.onInputChanged.bind(this);
-    this.props.calculateSaving( this.state.initialDeposit,
-                                this.state.monthlyDeposit,
-                                this.state.interestRate );
+    this.onSelectChanged = this.onSelectChanged.bind(this);
+    this.calculateSavings()
   }
 
+  calculateSavings(){
+      this.props.calculateSaving( this.state.initialDeposit,
+                                  this.state.monthlyDeposit,
+                                  this.state.interestRate,
+                                  this.state.interestRateInterval );
+  }
 
   onInputChanged(id, value){
     this.setState({ [id]: value }, function () {
-      this.props.calculateSaving( this.state.initialDeposit,
-                                  this.state.monthlyDeposit,
-                                  this.state.interestRate );
+      this.calculateSavings()
+    });
+  }
+
+  onSelectChanged(e){
+    this.setState({interestRateInterval: e.target.value}, function () {
+      this.calculateSavings()
     });
   }
 
@@ -44,7 +54,12 @@ class InputGraphSection extends Component {
           <CurrencyInput defaultValue={0} id='monthlyDeposit' onFieldChange={this.onInputChanged}/>
 
           <p className="input-label">
-            How much interest will you earn per year?
+            How much interest will you earn&nbsp; 
+            <select id='interestRateInterval' onChange={this.onSelectChanged}>
+              <option value="monthly">monthly</option>
+              <option value="quarterly">quarterly</option>
+              <option value="annually">annually</option>
+            </select>&nbsp;?
           </p>
           <SliderInput defaultValue={4} id='interestRate' onFieldChange={this.onInputChanged}/>
         </div>
