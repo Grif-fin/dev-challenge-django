@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { calculate } from "./../API"
 import CurrencyInput from "./CurrencyInput"
 import SliderInput from "./SliderInput"
 import DisplayGraph from "./DisplayGraph"
@@ -31,9 +30,11 @@ class InputGraphSection extends Component {
   }
 
   onInputChanged(id, value){
-    this.setState({ [id]: value }, function () {
-      this.calculateSavings()
-    });
+    if(!isNaN(value)){
+      this.setState({ [id]: value }, function () {
+        this.calculateSavings()
+      });
+    }
   }
 
   onSelectChanged(e){
