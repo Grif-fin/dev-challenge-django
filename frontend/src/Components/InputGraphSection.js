@@ -22,15 +22,15 @@ class InputGraphSection extends Component {
 
 
   onInputChanged(id, value){
-    this.setState({ [id]: value });
+    this.setState({ [id]: value }, function () {
+      this.props.calculateSaving( this.state.initialDeposit,
+                                  this.state.monthlyDeposit,
+                                  this.state.interestRate );
+    });
   }
 
   render() {
     const { result } = this.props
-
-    this.props.calculateSaving(this.state.initialDeposit,
-                                this.state.monthlyDeposit,
-                                this.state.interestRate );
     return (
       <div>
         <div className="financial-inputs">
@@ -81,9 +81,7 @@ InputGraphSection.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  initialDeposit: state.calculate.initialDeposit,
-  monthlyDeposit: state.calculate.monthlyDeposit,
-  interestRate: state.calculate.interestRate
+  calculatedSavings: state.calculate.calculatedSavings
 });
 
 export default connect(mapStateToProps, { calculateSaving })(InputGraphSection);

@@ -1,9 +1,7 @@
 import { CALCULATE_SAVING } from '../Actions/Types';
 
 const initialState = {
-  initialDeposit : 0,
-  monthlyDeposit : 0,
-  interestRate : 0
+  calculatedSavings: {}
 };
 
 export default function(state = initialState, action) {
