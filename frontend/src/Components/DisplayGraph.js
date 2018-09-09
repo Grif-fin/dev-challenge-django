@@ -8,19 +8,19 @@ export default class DisplayGraph extends Component {
 		const { data } = this.props;
 
 		const baseProps = {
-  		width: 10,
-  		height: 300,
-  		padding: 50,
-  		colorScale: ["#48C8FF", "#00b2ff", "#038AD0", "#006C9B"]
+	  		width: 40,
+	  		height: 300,
+	  		padding: 50,
+	  		colorScale: ["#48C8FF", "#00b2ff", "#038AD0", "#006C9B"]
 		};
 
 		const baseLabelStyles = {
-  		fontFamily: "'Avenir Next', 'Avenir', 'Lato', 'Helvetica', 'Arial', 'Sans-Serif'",
-  		fontSize: 2,
-  		letterSpacing: 'normal',
-  		padding: 10,
-  		fill: "#00b2ff",
-  		stroke: "transparent"
+	  		fontFamily: "'Avenir Next', 'Avenir', 'Lato', 'Helvetica', 'Arial', 'Sans-Serif'",
+	  		fontSize: 2,
+	  		letterSpacing: 'normal',
+	  		padding: 10,
+	  		fill: "#00b2ff",
+	  		stroke: "transparent"
 		};
 
 		const theme = {

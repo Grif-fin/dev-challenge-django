@@ -11,10 +11,10 @@ class InputGraphSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialDeposit: 0,
-      monthlyDeposit: 0,
+      initialDeposit: 1000,
+      monthlyDeposit: 500,
       interestRate: 4,
-      interestRateInterval: "monthly"
+      interestRateInterval: "annually"
     };
 
     this.onInputChanged = this.onInputChanged.bind(this);
@@ -44,29 +44,26 @@ class InputGraphSection extends Component {
   }
 
   render() {
-    const { result } = this.props
     return (
       <div>
         <div className="financial-inputs">
           <p className="input-label">How much have you saved?</p>
-          <CurrencyInput defaultValue={0} id='initialDeposit' onFieldChange={this.onInputChanged}/>
+          <CurrencyInput defaultValue={this.state.initialDeposit} id='initialDeposit' onFieldChange={this.onInputChanged}/>
 
           <p className="input-label">How much will you save each month?</p>
-          <CurrencyInput defaultValue={0} id='monthlyDeposit' onFieldChange={this.onInputChanged}/>
+          <CurrencyInput defaultValue={this.state.monthlyDeposit} id='monthlyDeposit' onFieldChange={this.onInputChanged}/>
 
           <p className="input-label">
             How much interest will you earn&nbsp; 
             <select id='interestRateInterval' onChange={this.onSelectChanged}>
-              <option value="monthly">monthly</option>
-              <option value="quarterly">quarterly</option>
               <option value="annually">annually</option>
+              <option value="quarterly">quarterly</option>
+              <option value="monthly">monthly</option>
             </select>&nbsp;?
           </p>
-          <SliderInput defaultValue={4} id='interestRate' onFieldChange={this.onInputChanged}/>
+          <SliderInput defaultValue={this.state.interestRate} id='interestRate' onFieldChange={this.onInputChanged}/>
         </div>
         <div className="financial-display center" style={{maxWidth:750}}>
-          {/*We have included some sample data here, you will need to replace this
-            with your own. Feel free to change the data structure if you wish.*/}
           <DisplayGraph
             data={this.props.graphResults}
           />
