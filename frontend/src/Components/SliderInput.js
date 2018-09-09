@@ -6,7 +6,6 @@ export default class SliderInput extends Component {
 
 	constructor(props) {
 		super(props)
-
 		this.state = {
 			value: props.defaultValue
 		}

@@ -14,10 +14,13 @@ class InputGraphSection extends Component {
     this.state = {
       initialDeposit: 0,
       monthlyDeposit: 0,
-      interestRate: 0
+      interestRate: 4
     };
 
     this.onInputChanged = this.onInputChanged.bind(this);
+    this.props.calculateSaving( this.state.initialDeposit,
+                                this.state.monthlyDeposit,
+                                this.state.interestRate );
   }
 
 
@@ -45,28 +48,11 @@ class InputGraphSection extends Component {
           </p>
           <SliderInput defaultValue={4} id='interestRate' onFieldChange={this.onInputChanged}/>
         </div>
-        <div className="financial-display">
+        <div className="financial-display center" style={{maxWidth:750}}>
           {/*We have included some sample data here, you will need to replace this
             with your own. Feel free to change the data structure if you wish.*/}
           <DisplayGraph
-            data={[
-              {
-                month: 1,
-                amount: 500
-              },
-              {
-                month: 2,
-                amount: 700
-              },
-              {
-                month: 3,
-                amount: 1000
-              },
-              {
-                month: 6,
-                amount: 1800
-              }
-            ]}
+            data={this.props.graphResults}
           />
         </div>
       </div>
@@ -76,12 +62,11 @@ class InputGraphSection extends Component {
 
 InputGraphSection.propTypes = {
   onInputChanged: PropTypes.func,
-  calculateSaving: PropTypes.func.isRequired,
-  calculatedData: PropTypes.object
+  calculateSaving: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  calculatedSavings: state.calculate.calculatedSavings
+  graphResults: state.calculate.graphResults
 });
 
 export default connect(mapStateToProps, { calculateSaving })(InputGraphSection);

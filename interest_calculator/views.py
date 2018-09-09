@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import json
 import pdb
+from pprint import pprint
 
 @require_POST
 @csrf_exempt
@@ -16,4 +17,20 @@ def calculate(request):
     if initial_deposit is None or interest_rate is None:
         return HttpResponseBadRequest('Required parameters are not provided')
 
-    return JsonResponse({'result': 1000})
+    return JsonResponse({'result' : getGraphResults(initial_deposit, monthly_deposit, interest_rate)})
+
+def getGraphResults(initial_deposit, monthly_deposit, interest_rate):
+	result = []
+	amount = initial_deposit
+	for x in range(1, 51):
+		result.append({'month': x, 'amount': amount})
+		amount = amount+monthly_deposit
+		amount += calcGrowth(amount, interest_rate)
+
+	return result
+
+def calcGrowth(amount, interest_rate):
+	if interest_rate == 0:
+		return amount
+	else:
+		return (interest_rate*(amount))/100.0

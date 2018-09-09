@@ -8,7 +8,7 @@ export default class DisplayGraph extends Component {
 		const { data } = this.props;
 
 		const baseProps = {
-  		width: 450,
+  		width: 10,
   		height: 300,
   		padding: 50,
   		colorScale: ["#48C8FF", "#00b2ff", "#038AD0", "#006C9B"]
@@ -45,12 +45,12 @@ export default class DisplayGraph extends Component {
 			}, baseProps),
 			line: Object.assign({
     		style: {
-      		data: {
-        		fill: "transparent",
-        		stroke: "#00b2ff",
-        		strokeWidth: 2
-      		},
-      		labels: baseLabelStyles
+	      		data: {
+	        		fill: "transparent",
+	        		stroke: "#00b2ff",
+	        		strokeWidth: 2
+	      		},
+	      		labels: baseLabelStyles
     		}
   		}, baseProps)
 		};

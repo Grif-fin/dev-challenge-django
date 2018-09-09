@@ -1,7 +1,7 @@
 import { CALCULATE_SAVING } from '../Actions/Types';
 
 const initialState = {
-  calculatedSavings: {}
+  graphResults: {}
 };
 
 export default function(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function(state = initialState, action) {
     case CALCULATE_SAVING:
       return {
         ...state,
-        calculatedSavings: action.payload
+        graphResults: action.payload.data.result
       };
     default:
       return state;
