@@ -12,7 +12,7 @@ def calculate(request):
     monthly_deposit = params.get('monthlyDeposit', None)
     interest_rate = params.get('interestRate', None)
     #pdb.set_trace()
-
+    print(params)
     if initial_deposit is None or interest_rate is None:
         return HttpResponseBadRequest('Required parameters are not provided')
 
